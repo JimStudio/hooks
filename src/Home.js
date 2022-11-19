@@ -2,23 +2,36 @@ import { useState, useEffect} from "react";
 import Bloglist from "./Bloglist";
 
 const Home = () => {
-    const [blogs, setblogs] = useState([
-      { title: 'My new website', body: 'lorem ipsum...', author: 'mario', id: 1 },
-      { title: 'Welcome party!', body: 'lorem ipsum...', author: 'yoshi', id: 2 },
-      { title: 'Web dev top tips', body: 'lorem ipsum...', author: 'mario', id: 3 }
-    ]);
-
-    const handleDelete =(id) =>{
-        const newBlogs = blogs.filter(blog => blog.id != id);
-        setblogs(newBlogs);
-    }
+    const [blogs, setblogs] = useState(null);
+    const [isPadding, setpadding] = useState(true);
+    const [error, serError] = useState(null);
+   
 
     useEffect(() => {
-      
-    });
+      setTimeout(() => {
+        fetch('http://localhost:8000/blogs')
+      .then(res =>{
+        if(!res.ok){
+          throw Error('could not fetch the data for that rsource');
+        }
+        return res.json();
+      })
+      .then(data => {
+        setblogs(data);
+        setpadding(false);
+        serError(null);
+      })
+      .catch(err => {
+        setpadding(false);
+        serError(err.message);
+      })
+      }, 1000);
+    },[]);
     return (
       <div className="home">
-         <Bloglist blogs={blogs} title="All Blogs!" handleDelete={handleDelete} />
+        {error && <div> { error } </div>}
+        {isPadding && <div>Lodding....</div>}
+         {blogs && <Bloglist blogs={blogs} title="All Blogs!"/> }
         {/* // <Bloglist blogs={blogs.filter((blog) => blog.author === "mario" )} title="Mario's blos"/> */}
       </div>
     );
