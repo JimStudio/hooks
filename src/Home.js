@@ -8,7 +8,7 @@ const Home = () => {
     return (
       <div className="home">
         {error && <div> { error } </div>}
-        {isPadding && <div>Lodding....</div>}
+        {isPending && <div>Lodding....</div>}
          {blogs && <Bloglist blogs={blogs} title="All Blogs!"/> }
         {/* // <Bloglist blogs={blogs.filter((blog) => blog.author === "mario" )} title="Mario's blos"/> */}
       </div>
