@@ -1,32 +1,10 @@
 import { useState, useEffect} from "react";
 import Bloglist from "./Bloglist";
+import useFetch from "./useFetch";
 
 const Home = () => {
-    const [blogs, setblogs] = useState(null);
-    const [isPadding, setpadding] = useState(true);
-    const [error, serError] = useState(null);
+  const { error, isPending, data: blogs } = useFetch('http://localhost:8000/blogs')
    
-
-    useEffect(() => {
-      setTimeout(() => {
-        fetch('http://localhost:8000/blogs')
-      .then(res =>{
-        if(!res.ok){
-          throw Error('could not fetch the data for that rsource');
-        }
-        return res.json();
-      })
-      .then(data => {
-        setblogs(data);
-        setpadding(false);
-        serError(null);
-      })
-      .catch(err => {
-        setpadding(false);
-        serError(err.message);
-      })
-      }, 1000);
-    },[]);
     return (
       <div className="home">
         {error && <div> { error } </div>}
