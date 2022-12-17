@@ -7,8 +7,9 @@ const useFetch = (url) => {
     const [error, serError] = useState(null);
 
     useEffect(() => {
+      const aboartCont = new AbortController();
         setTimeout(() => {
-          fetch(url)
+          fetch(url, {signal: aboartCont.signal})
         .then(res =>{
           if(!res.ok){
             throw Error('could not fetch the data for that rsource');
@@ -21,10 +22,15 @@ const useFetch = (url) => {
           serError(null);
         })
         .catch(err => {
-          setpadding(false);
-          serError(err.message);
-        })
-        }, 1000);
+          if( err.name == 'AbortError'){
+            console.log('fectch abortd');
+          }else{
+           setpadding(false);
+           serError(err.message);
+          }
+         })
+         }, 1000);
+         return() => aboartCont.abort();
       },[url]);
 
       return{data, isPadding, error}

@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import Home from './Home';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Create from './Create';
+import BlogDetalis from './BlogDetails';
 
 function App() {
 
@@ -18,10 +19,13 @@ function App() {
             <Route path="/create">
               <Create />
             </Route>
+            <Route path="/blogs/:id">
+              <BlogDetalis />
+            </Route>
           </Switch>
         </div>
       </div>
-    </Router>
+    </Router> 
   );
 }
 
