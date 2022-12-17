@@ -22,7 +22,7 @@ const useFetch = (url) => {
           serError(null);
         })
         .catch(err => {
-          if( err.name == 'AbortError'){
+          if( err.name === 'AbortError'){
             console.log('fectch abortd');
           }else{
            setpadding(false);
