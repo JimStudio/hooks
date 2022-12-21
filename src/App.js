@@ -4,6 +4,7 @@ import Home from './Home';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Create from './Create';
 import BlogDetalis from './BlogDetails';
+import MotFound from './NotFound';
 
 function App() {
 
@@ -21,6 +22,9 @@ function App() {
             </Route>
             <Route path="/blogs/:id">
               <BlogDetalis />
+            </Route>
+            <Route path="*">
+               <MotFound/>
             </Route>
           </Switch>
         </div>

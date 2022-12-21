@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 const Create = () => {
 
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [author, setAuhor] = useState('mario');
-    const [isPending, setisPending] = useState(false)
+    const [isPending, setisPending] = useState(false);
+    const history = useHistory();
     
     const handleSumbit =  (e) => {
         e.preventDefault();
@@ -21,7 +23,9 @@ const Create = () => {
         }).then(() => {
             console.log('new blog');
             setisPending(false);
-        })
+            history.push('/');
+        });
+        
     }
 
     return (
